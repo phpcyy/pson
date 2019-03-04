@@ -8,18 +8,6 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
     }
 }
 
-use function Pson\output;
-use function Pson\get_input;
-use function Pson\usage;
-use const Pson\code_file_not_exist;
-use const Pson\code_wrong_argv_count;
+use function Pson\bin;
 
-try {
-    echo output(json_decode(get_input(), true), 0, true);
-} catch (Exception $exception) {
-    if ($exception->getCode() == code_wrong_argv_count) {
-        echo usage();
-    } else if ($exception->getCode() == code_file_not_exist) {
-        echo "file not exist";
-    }
-}
+bin();
