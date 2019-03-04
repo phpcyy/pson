@@ -42,13 +42,13 @@ function output($out, $tab, $newline, $comma = false)
         $format .= output_var($out, $newline ? $tab : 0, 1);
     } else {
         if (is_assoc($out)) {
-            $format .= echo_tab("\033[30m{\n\033[0m", $newline ? $tab : 0);
+            $format .= echo_tab("\e[32m{\n\e[0m", $newline ? $tab : 0);
 
             foreach ($out as $k => $item) {
                 $format .= output_var($k, $tab + 1, false, true) . ": " . output($item, $tab + 1, false, $k != array_keys($out)[count($out) - 1]);
             }
 
-            $format .= echo_tab("\e[30m}\e[0m\n", $tab);
+            $format .= echo_tab("\e[32m}\e[0m\n", $tab);
         } else {
             $format .= echo_tab("\e[37m[\e[0m\n", $newline ? $tab : 0);
             if (empty($out)) {
@@ -78,9 +78,9 @@ function output_var($out, $tab, $appendLine, $is_key = false)
 
     if (is_string($out)) {
         if ($is_key) {
-            $format = "\e[36m" . sprintf('"%s"', $out) . "\e[0m";
+            $format = "\e[36m" . sprintf('"%s"', addslashes($out)) . "\e[0m";
         } else {
-            $format = "\e[35m" . sprintf('"%s"', $out) . "\e[0m";
+            $format = "\e[35m" . sprintf('"%s"', addslashes($out)) . "\e[0m";
         }
     }
 
