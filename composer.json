@@ -1,5 +1,5 @@
 {
-  "name": "chengangyang/pson",
+  "name": "phpcyy/pson",
   "description": "json pretty with colors",
   "type": "library",
   "bin": [
