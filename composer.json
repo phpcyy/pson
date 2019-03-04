@@ -1,0 +1,24 @@
+{
+  "name": "chengangyang/pson",
+  "description": "json pretty with colors",
+  "type": "library",
+  "bin": [
+    "bin/pson"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pson\\": "src/"
+    },
+    "files": [
+      "src/pson.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "陈钢阳",
+      "email": "phpcyy@163.net"
+    }
+  ],
+  "require": {},
+  "license": "MIT"
+}
