@@ -21,7 +21,8 @@
     }
   ],
   "require": {
-    "ext-json": "*"
+    "ext-json": "*",
+    "phpcyy/pson": "^1.0"
   },
   "license": "MIT"
 }
