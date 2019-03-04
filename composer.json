@@ -13,12 +13,15 @@
       "src/pson.php"
     ]
   },
+
   "authors": [
     {
       "name": "陈钢阳",
       "email": "phpcyy@163.net"
     }
   ],
-  "require": {},
+  "require": {
+    "ext-json": "*"
+  },
   "license": "MIT"
 }
