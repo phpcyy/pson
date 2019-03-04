@@ -31,7 +31,7 @@ Usage:
 
 Example:
     pson config.json
-    echo '{\"message\": \"hello, 世界\"}' | pson
+    echo "{\"message\": \"hello, 世界\"}" | pson
 EOF;
 }
 
