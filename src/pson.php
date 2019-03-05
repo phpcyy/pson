@@ -3,9 +3,10 @@
 namespace Pson;
 
 const code_wrong_argv_count = 1;
-const code_file_not_exist = 2;
 
-
+/**
+ * Main function.
+ */
 function bin()
 {
     try {
@@ -37,13 +38,15 @@ function bin()
     } catch (\Exception $exception) {
         if ($exception->getCode() == code_wrong_argv_count) {
             echo usage();
-        } else if ($exception->getCode() == code_file_not_exist) {
-            echo "file not exist";
+        } else {
+            echo $exception->getMessage();
         }
     }
 }
 
 /**
+ * Get JSON from STDIN or file.
+ *
  * @throws \Exception
  */
 function get_inputs()
@@ -56,6 +59,11 @@ function get_inputs()
     throw new \Exception("", code_wrong_argv_count);
 }
 
+/**
+ * Usage of Pson.
+ *
+ * @return string
+ */
 function usage()
 {
     return <<<EOF
@@ -68,6 +76,15 @@ Example:
 EOF;
 }
 
+/**
+ * Simply transfer PHP array into pretty colored json.
+ *
+ * @param $out
+ * @param $tab
+ * @param $newline
+ * @param bool $comma
+ * @return string
+ */
 function output($out, $tab, $newline, $comma = false)
 {
     $format = "";
@@ -97,11 +114,26 @@ function output($out, $tab, $newline, $comma = false)
     return $comma ? rtrim($format, "\n") . ",\n" : $format;
 }
 
+/**
+ * Decide the array is a key-value array or a pure array.
+ *
+ * @param $arr
+ * @return bool
+ */
 function is_assoc($arr)
 {
     return array_values($arr) !== $arr;
 }
 
+/**
+ * Format the output.
+ *
+ * @param $out
+ * @param $tab
+ * @param $appendLine
+ * @param bool $is_key
+ * @return string
+ */
 function output_var($out, $tab, $appendLine, $is_key = false)
 {
     $format = "";
@@ -131,46 +163,90 @@ function output_var($out, $tab, $appendLine, $is_key = false)
     return $format;
 }
 
+/**
+ * Get a string with specific num of pre tabs.
+ *
+ * @param $str
+ * @param $tab
+ * @return string
+ */
 function echo_tab($str, $tab)
 {
     return str_repeat("    ", $tab) . $str;
 }
 
+/***
+ * The following code are functions to output with different colors.
+ */
+
+
+/**
+ * @param $content
+ * @return string
+ */
 function black($content)
 {
     return sprintf("\e[30m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function red($content)
 {
     return sprintf("\e[31m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function green($content)
 {
     return sprintf("\e[32m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function yellow($content)
 {
     return sprintf("\e[33m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function blue($content)
 {
     return sprintf("\e[34m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function purple($content)
 {
     return sprintf("\e[35m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function darkGreen($content)
 {
     return sprintf("\e[36m%s\e[0m", $content);
 }
 
+/**
+ * @param $content
+ * @return string
+ */
 function white($content)
 {
     return sprintf("\e[37m%s\e[0m", $content);
