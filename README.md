@@ -8,7 +8,7 @@ Json pretty show with colors in terminal.
 Simple usage: 
 
 ```bash
-composer g install phpcyy/pson
+composer g require phpcyy/pson
 
 # Format json from file.
 ~/.composer/vendor/bin/pson file.json
