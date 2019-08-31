@@ -91,22 +91,30 @@ function output($out, $tab, $newline, $comma = false)
     if (!is_array($out) && !is_object($out)) {
         $format .= output_var($out, $newline ? $tab : 0, 1);
     } else if (is_object($out)) {
-        $format .= echo_tab(green("{") . "\n", $newline ? $tab : 0);
+        if (count(get_object_vars($out)) === 0) {
+            $format .= echo_tab(green("{}") . "\n", $newline ? $tab : 0);
+        } else {
+            $format .= echo_tab(green("{") . "\n", $newline ? $tab : 0);
 
-        foreach ($out as $k => $item) {
-            $format .= output_var($k, $tab + 1, false, true) . ": " . output($item, $tab + 1, false, $k != array_keys(get_object_vars($out))[count(get_object_vars($out)) - 1]);
+            foreach ($out as $k => $item) {
+                $format .= output_var($k, $tab + 1, false, true) . ": " . output($item, $tab + 1, false, $k != array_keys(get_object_vars($out))[count(get_object_vars($out)) - 1]);
+            }
+
+            $format .= echo_tab(green("}") . "\n", $tab);
         }
-
-        $format .= echo_tab(green("}") . "\n", $tab);
     } else {
-        $format .= echo_tab(white("[") . "\n", $newline ? $tab : 0);
-        if (empty($out)) {
-            $format .= "\n";
+        if (count($out) === 0) {
+            $format .= echo_tab(white("[]") . "\n", $newline ? $tab : 0);
+        } else {
+            $format .= echo_tab(white("[") . "\n", $newline ? $tab : 0);
+            if (empty($out)) {
+                $format .= "\n";
+            }
+            foreach ($out as $k => $item) {
+                $format .= output($item, $tab + 1, true, $k != count($out) - 1);
+            }
+            $format .= echo_tab(white("]") . "\n", $tab);
         }
-        foreach ($out as $k => $item) {
-            $format .= output($item, $tab + 1, true, $k != count($out) - 1);
-        }
-        $format .= echo_tab(white("]") . "\n", $tab);
     }
 
 
