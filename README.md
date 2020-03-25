@@ -19,8 +19,8 @@ echo '{"message": "hello, 世界"}' | ~/.composer/vendor/bin/pson
 
 And you will see:
  
-![](https://ws1.sinaimg.cn/large/c35c3fddgy1g0s6ngw49cj20mb02b0sn.jpg)
+![](https://oss.gonever.com/php6Nq6TD5e7ab5793b694.png)
 
-You can add pson into your environment variable ($PATH), and you can use it in anywhere.
+You may add pson into your environment variable ($PATH), and you can use it anywhere.
 
 Just enjoy it.
