@@ -7,8 +7,7 @@ const code_wrong_argv_count = 1;
 /**
  * Main function.
  */
-function bin()
-{
+function bin() {
     try {
         foreach (get_inputs() as $index => $input) {
             if ($index > 0) {
@@ -49,9 +48,8 @@ function bin()
  *
  * @throws \Exception
  */
-function get_inputs()
-{
-    if (ftell(STDIN) === 0) {
+function get_inputs() {
+    if (!stream_isatty(fopen('php://stdin', 'r'))) {
         return [STDIN];
     } else if (count($GLOBALS['argv']) > 1) {
         return array_slice($GLOBALS['argv'], 1);
@@ -64,8 +62,7 @@ function get_inputs()
  *
  * @return string
  */
-function usage()
-{
+function usage() {
     return <<<EOF
 Usage:
     pson [files...]
@@ -85,8 +82,7 @@ EOF;
  * @param bool $comma
  * @return string
  */
-function output($out, $tab, $newline, $comma = false)
-{
+function output($out, $tab, $newline, $comma = false) {
     $format = "";
     if (!is_array($out) && !is_object($out)) {
         $format .= output_var($out, $newline ? $tab : 0, 1);
@@ -127,8 +123,7 @@ function output($out, $tab, $newline, $comma = false)
  * @param $arr
  * @return bool
  */
-function is_assoc($arr)
-{
+function is_assoc($arr) {
     return array_values($arr) !== $arr;
 }
 
@@ -141,8 +136,7 @@ function is_assoc($arr)
  * @param bool $is_key
  * @return string
  */
-function output_var($out, $tab, $appendLine, $is_key = false)
-{
+function output_var($out, $tab, $appendLine, $is_key = false) {
     $format = "";
     if (is_float($out) || is_int($out)) {
         $format = blue($out);
@@ -177,8 +171,7 @@ function output_var($out, $tab, $appendLine, $is_key = false)
  * @param $tab
  * @return string
  */
-function echo_tab($str, $tab)
-{
+function echo_tab($str, $tab) {
     return str_repeat("    ", $tab) . $str;
 }
 
@@ -191,8 +184,7 @@ function echo_tab($str, $tab)
  * @param $content
  * @return string
  */
-function black($content)
-{
+function black($content) {
     return sprintf("\e[30m%s\e[0m", $content);
 }
 
@@ -200,8 +192,7 @@ function black($content)
  * @param $content
  * @return string
  */
-function red($content)
-{
+function red($content) {
     return sprintf("\e[31m%s\e[0m", $content);
 }
 
@@ -209,8 +200,7 @@ function red($content)
  * @param $content
  * @return string
  */
-function green($content)
-{
+function green($content) {
     return sprintf("\e[32m%s\e[0m", $content);
 }
 
@@ -218,8 +208,7 @@ function green($content)
  * @param $content
  * @return string
  */
-function yellow($content)
-{
+function yellow($content) {
     return sprintf("\e[33m%s\e[0m", $content);
 }
 
@@ -227,8 +216,7 @@ function yellow($content)
  * @param $content
  * @return string
  */
-function blue($content)
-{
+function blue($content) {
     return sprintf("\e[34m%s\e[0m", $content);
 }
 
@@ -236,8 +224,7 @@ function blue($content)
  * @param $content
  * @return string
  */
-function purple($content)
-{
+function purple($content) {
     return sprintf("\e[35m%s\e[0m", $content);
 }
 
@@ -245,8 +232,7 @@ function purple($content)
  * @param $content
  * @return string
  */
-function darkGreen($content)
-{
+function darkGreen($content) {
     return sprintf("\e[36m%s\e[0m", $content);
 }
 
@@ -254,7 +240,6 @@ function darkGreen($content)
  * @param $content
  * @return string
  */
-function white($content)
-{
+function white($content) {
     return sprintf("\e[37m%s\e[0m", $content);
 }
